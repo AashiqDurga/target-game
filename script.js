@@ -1,7 +1,14 @@
+let countdown = 10;
+var score = 0;
+
 window.onload = function () {
     timer()
     document.getElementById("target").addEventListener("click", () => {
-        moveTarget()
+        if (countdown > 0) {
+
+            calculateScore()
+            moveTarget()
+        }
     })
 }
 
@@ -18,21 +25,23 @@ const moveTarget = () => {
     document.querySelector(".target").style.transform = `translate(${x}px, ${y}px)`;
 }
 
+const calculateScore = () => {
+    score++
+    document.getElementById("score").textContent = `${score} clicks`
+}
+
 const timer = () => {
+    document.getElementById("timer").textContent = `${countdown} Seconds`
 
-    let timer = document.getElementById("timer").textContent = "20 Seconds"
 
-
-    let countdown = 20;
 
     const intervalId = setInterval(() => {
-        timer = document.getElementById("timer").textContent = `${countdown} Seconds`
-        console.log(countdown);
+        document.getElementById("timer").textContent = `${countdown} Seconds`
         countdown--;
 
         if (countdown < 0) {
             clearInterval(intervalId);
-            document.getElementById("timer").textContent = ` Game Over`
+            document.getElementById("timer").textContent = `Game Over`
         }
     }, 1000);
 
